@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*1.*/
+		.box{width: 100px; height: 100px; background: pink; position: absolute;
+		  left: 0; top:0}	
+			
+		</style>
+	</head>
+	<body>
+		<!--2.-->
+		<div class="box"></div>
+		<script>
+			
+			//移动端事件
+			
+			
+			
+			//dom加载完毕
+            //3.
+           document.addEventListener("DOMContentLoaded",function(){
+			//4.
+			var div=document.querySelector(".box");
+			console.log(div)
+           //5.	给div 添加手指按下事件	
+		   div.addEventListener("touchstart",function(e){
+			//touchcancel触碰  相当于点击事件
+			//touchmove 相当于pc端的移动事件
+			//console.log(e)
+			var disx=e.targetTouches[0].clientX-this.offsetLeft;
+			var disy=e.targetTouches[0].clientY-this.offsetTop;
+		  //6.给div添加手指移动时的事件
+		   document.addEventListener("touchmove",tochMove)			
+			function tochMove(e){
+			div.style.left=e.targetTouches[0].clientX-disx+"px";
+			div.style.top=e.targetTouches[0].clientY-disy+"px";					
+			}
+//         7.手指离开屏幕发生的事件					
+			document.addEventListener("touchend",touchEng)
+			
+			//8.解除绑定
+			function touchEng(){
+		    document.removeEventListener("touchmove",tochMove),
+		    document.removeEventListener("touchend",touchEng);
+		    //9.阻止默认事件
+		    e.preventDefault();
+				
+	       }
+			})
+				
+			}) //false 是冒泡   true 是捕获 
+			
+			
+			
+		</script>
+	</body>
+</html>
